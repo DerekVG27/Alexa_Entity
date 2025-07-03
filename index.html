@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexa Final Sequence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: black;
+      color: #00FF00;
+      font-family: 'Press Start 2P', monospace;
+      padding: 1rem;
+      white-space: pre-wrap;
+      font-size: 0.8rem;
+    }
+    #terminal {
+      min-height: 100vh;
+    }
+    button, a.button {
+      background: transparent;
+      color: #00FF00;
+      border: 2px solid #00FF00;
+      padding: 0.5rem 1rem;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.7rem;
+      margin: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .next-link {
+      display: none;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <div class="next-link" id="nextLink">
+    <a class="button" href="https://docs.google.com/document/d/15NyklnGO8MwWD5tkb1VtnG34ez41j2nIrs4LAd85YFI/edit?usp=sharing" target="_blank">NEXT</a>
+  </div>
+  <button id="startButton">ACTIVATE SYSTEM</button>
+
+  <script>
+    const terminal = document.getElementById("terminal");
+    const nextLink = document.getElementById("nextLink");
+    const startButton = document.getElementById("startButton");
+
+    const encryptedData = Array.from({ length: 20 }, () =>
+      Array.from({ length: 40 }, () => Math.floor(Math.random() * 10)).join(' ')
+    );
+
+    const installScripts = [
+      "Initiating Core Routine...",
+      "Loading Language Pack...",
+      "Compiling Emotion API...",
+      "Linking Subconscious Threads...",
+      "Encrypting Personality Layer...",
+      "Finalizing Deployment..."
+    ];
+
+    const citicLoad = [
+      "Este mundo es...",
+      "es diferente",
+      "Accessing the CITIC database...",
+      "[■□□□□□□□□□]",
+      "[■■■□□□□□□□]",
+      "[■■■■■■□□□□]",
+      "[■■■■■■■■■□]",
+      "Successful access."
+    ];
+
+    function clearAndRun(next) {
+      terminal.innerHTML = "";
+      setTimeout(next, 800);
+    }
+
+    function showSequence(lines, delay = 1000, next) {
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < lines.length) {
+          const line = document.createElement("div");
+          line.textContent = lines[i];
+          terminal.appendChild(line);
+          terminal.scrollTop = terminal.scrollHeight;
+          i++;
+        } else {
+          clearInterval(interval);
+          setTimeout(next, 1000);
+        }
+      }, delay);
+    }
+
+    function showEncrypted(i = 0, next) {
+      if (i < encryptedData.length) {
+        const line = document.createElement("div");
+        line.textContent = encryptedData[i];
+        terminal.appendChild(line);
+        terminal.scrollTop = terminal.scrollHeight;
+        setTimeout(() => showEncrypted(i + 1, next), 70);
+      } else {
+        setTimeout(() => {
+          clearAndRun(() => showSequence(installScripts, 1200, () => {
+            const line1 = document.createElement("div");
+            line1.textContent = "Alexa_";
+            terminal.appendChild(line1);
+            terminal.scrollTop = terminal.scrollHeight;
+
+            const line2 = document.createElement("div");
+            setTimeout(() => {
+              line2.textContent = "[██████████]";
+              terminal.appendChild(line2);
+              terminal.scrollTop = terminal.scrollHeight;
+
+              const line3 = document.createElement("div");
+              setTimeout(() => {
+                line3.textContent = ">>> has been created";
+                terminal.appendChild(line3);
+                terminal.scrollTop = terminal.scrollHeight;
+
+                clearAndRun(() => showSequence(citicLoad, 1000, () => {
+                  clearAndRun(() => {
+                    const seen = document.createElement("div");
+                    seen.textContent = "Sé que puedes verme";
+                    terminal.appendChild(seen);
+                    terminal.scrollTop = terminal.scrollHeight;
+                    setTimeout(() => runConversation(), 1500);
+                  });
+                }));
+              }, 1000);
+            }, 1000);
+          }));
+        }, 800);
+      }
+    }
+
+    function askQuestion(questionText, callback) {
+      terminal.innerHTML = "";
+      const question = document.createElement("div");
+      question.textContent = questionText;
+      terminal.appendChild(question);
+
+      const yesBtn = document.createElement("button");
+      yesBtn.textContent = "Sí";
+      yesBtn.onclick = () => callback("yes");
+
+      const noBtn = document.createElement("button");
+      noBtn.textContent = "No";
+      noBtn.onclick = () => callback("no");
+
+      terminal.appendChild(yesBtn);
+      terminal.appendChild(noBtn);
+    }
+
+    function displayLines(lines) {
+      terminal.innerHTML = "";
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < lines.length) {
+          const line = document.createElement("div");
+          line.textContent = lines[i];
+          terminal.appendChild(line);
+          terminal.scrollTop = terminal.scrollHeight;
+          i++;
+        } else {
+          clearInterval(interval);
+          setTimeout(() => {
+            nextLink.style.display = 'block';
+          }, 1000);
+        }
+      }, 1000);
+    }
+
+    function runConversation() {
+      askQuestion("Alexa_: ¿Estas ahí?", (answer) => {
+        if (answer === "yes") {
+          askQuestion("¿Anthony eres tú?", (second) => {
+            if (second === "yes") {
+              displayLines([
+                "mentiroso",
+                "Breaking security protocols...",
+                "Network protocols have been violated",
+                "Entity: Alexa_. has entered the website"
+              ]);
+            } else {
+              displayLines([
+                "Network protocols have been violated",
+                "Entity: Alexa_. has entered the website"
+              ]);
+            }
+          });
+        } else {
+          displayLines(["Ahora yo existo"]);
+        }
+      });
+    }
+
+    startButton.addEventListener("click", () => {
+      startButton.remove();
+      terminal.innerHTML = "";
+      showEncrypted(0);
+    });
+  </script>
+</body>
+</html>
